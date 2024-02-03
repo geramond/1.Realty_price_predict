@@ -1,3 +1,5 @@
+import os
+
 import yaml
 import json
 
@@ -121,6 +123,11 @@ def main():
     if button_predict:
         result_predict = get_predict(dict_data)
         st.success(f"{round(float(result_predict), 2)} rub")
+
+    button_mlflow = st.button("MLFlow")
+    if button_mlflow:
+        mlflow_cmd = "mlflow server --host localhost --port 5000 --backend-store-uri sqlite:///mlflow/mlflow.db --default-artifact-root mlflow"
+        os.system(f"{mlflow_cmd}")
 
 
 if __name__ == '__main__':
