@@ -7,7 +7,7 @@ predict:
   model_lr: LinearRegression
   path_model: model/model.pkl
   random_state: 10
-  version_lr: 12
+  version_lr: 13
 train:
   dir_folder: /Users/maksimfomin/IT/DS_practice/1.Регрессия/1.Realty_price_predict
   load:

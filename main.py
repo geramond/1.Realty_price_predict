@@ -132,3 +132,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# TODO:
+# Optimise model (MAE):
+#   - Add Jupyter Notebook
+#   - Create pipeline
+#   - Use GridSearch, Optuna
