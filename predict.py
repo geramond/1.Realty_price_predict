@@ -55,7 +55,8 @@ def main():
     predict = model.predict(data_predict)
 
     print(predict)
-    print(type(float(predict)))
+    print(type(predict))
+    # print(type(float(predict)))
     print('Hello!')
 
 if __name__ == "__main__":
