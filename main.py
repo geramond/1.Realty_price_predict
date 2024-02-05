@@ -46,6 +46,7 @@ def get_predict(dict_data: dict):
 
 
 def main():
+    st.set_page_config(layout="wide")
     st.header('House prices in Moscow')
 
     with open(PATH_UNIQUE_VALUES) as file:
@@ -134,7 +135,8 @@ if __name__ == '__main__':
     main()
 
 # TODO:
-# Optimise model (MAE):
+#   - Optimise model (MAE):
 #   - Add Jupyter Notebook
 #   - Create pipeline
 #   - Use GridSearch, Optuna
+#   - REFORMAT CODE ACCORDING PEP8
