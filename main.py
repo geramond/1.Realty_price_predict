@@ -71,8 +71,8 @@ def main():
                 
             - Object_type - Apartment type.
                 1 - Secondary real estate market.
-                2 - New building.
-                
+                11 - New building.
+
             - Level - Apartment floor
             - Levels - Number of storeys
             - Rooms - the number of living rooms.
@@ -135,8 +135,4 @@ if __name__ == '__main__':
     main()
 
 # TODO:
-#   - Optimise model (MAE):
-#   - Add Jupyter Notebook
-#   - Create pipeline
-#   - Use GridSearch, Optuna
 #   - REFORMAT CODE ACCORDING PEP8

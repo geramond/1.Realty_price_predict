@@ -15,7 +15,11 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import make_column_transformer
+
+from sklearn.pipeline import Pipeline
 from sklearn.pipeline import make_pipeline
+
+from catboost import CatBoostRegressor
 
 
 CONFIG_PATH = os.path.join('config/params.yaml')
@@ -60,17 +64,28 @@ def load_and_train_data(path_data, drop_cols):
     y = df["price"]
     X = df.drop(columns="price", axis=1)
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=TEST_SIZE, random_state=RAND
-    )
+    X_train, X_test, y_train, y_test = train_test_split(X,
+                                                        y,
+                                                        test_size=TEST_SIZE,
+                                                        shuffle=True,
+                                                        random_state=RAND)
+
+    X_train_, X_val, y_train_, y_val = train_test_split(X_train,
+                                                        y_train,
+                                                        test_size=TEST_SIZE,
+                                                        random_state=RAND)
+
+    eval_set = [(X_val, y_val)]
 
     data_dict = {
         "X": X,
         "y": y,
         "X_train": X_train,
         "X_test": X_test,
+        "X_val": X_val,
         "y_train": y_train,
-        "y_test": y_test
+        "y_test": y_test,
+        "y_val": y_val
     }
 
     # Create pipeline
@@ -78,7 +93,16 @@ def load_and_train_data(path_data, drop_cols):
         (StandardScaler(), NUMERIC_FEATURES),
         (OneHotEncoder(handle_unknown="ignore", drop="first"), CATEGORICAL_FEATURES),
     )
-    model = make_pipeline(preprocessor, LinearRegression())
+    cat_optuna = CatBoostRegressor(n_estimators=300,
+                                   learning_rate=0.14576781861855528,
+                                   max_depth=12,
+                                   loss_function='MAE',
+                                   eval_metric='MAE',
+                                   random_state=10,
+                                   allow_writing_files=False
+                                   )
+    model = Pipeline([('columnTransformer', preprocessor),
+                      ('cat', cat_optuna)])
 
     # Train model
     model.fit(X_train, y_train)
