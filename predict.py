@@ -16,7 +16,6 @@ logging.basicConfig(filename='log/app.log', filemode='w+', format='%(asctime)s :
 
 def predict_price(model: pickle, dict_data: dict):
     logging.info('Predict house price')
-
     logging.info('Loading model last version')
 
     mlflow.set_tracking_uri("http://127.0.0.1:5000")
